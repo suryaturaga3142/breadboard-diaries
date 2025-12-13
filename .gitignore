@@ -1,0 +1,28 @@
+# Gitignore
+
+# Deliberately Private
+
+# LTspice
+*.raw
+*.fft
+*.plt
+*.log
+*.net
+*.traf
+*.op.raw
+
+# KiCad
+*.bak
+*_autosave-*.kicad_sch
+*_autosave-*.kicad_pcb
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*.kicad_prl
+*.lock
+
+# Other
+fp-info-cache
+.DS_Store
+Thumbs.db
+*~
+*.swp
