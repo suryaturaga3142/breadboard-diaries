@@ -1,22 +1,27 @@
 # Gitattributes
+text=auto
 
 # --- Documentation ---
-*.md text
-README.md text
+*.md           text eol=lf
+README.md      text eol=lf
+.gitignore     text eol=lf
+.gitattributes text eol=lf
 
 # --- KiCad ---
-*.kicad_sch text
-*.kicad_sym text
-*.kicad_pro text
-*.kicad_wks text
+*.kicad_sch text eol=lf
+*.kicad_sym text eol=lf
+*.kicad_pro text eol=lf
+*.kicad_wks text eol=lf
+*.kicad_pcb text eol=lf
+*.kicad_mod text eol=lf
 
 # --- LTspice ---
-*.asc text
-*.asy text
+*.asc text eol=lf
+*.asy text eol=lf
 
 # --- Media & Binary ---
-*.png binary
-*.jpg binary
+*.png  binary
+*.jpg  binary
 *.jpeg binary
-*.gif binary
-*.pdf binary
+*.gif  binary
+*.pdf  binary

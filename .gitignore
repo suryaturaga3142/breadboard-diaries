@@ -1,6 +1,14 @@
 # Gitignore
 
 # Deliberately Private
+*-backups
+*.kicad_pcb
+01-audio-equalizer/schematics/*
+01-audio-equalizer/simulations/*
+03-heartbeat-monitor/schematics/*
+03-heartbeat-monitor/simulations/*
+04-my-opamp/schematics/*
+04-my-opamp/simulations/*
 
 # LTspice
 *.raw
