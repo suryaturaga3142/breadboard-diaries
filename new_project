@@ -61,7 +61,7 @@ KICAD_TEMPLATE_DIR="${TEMPLATE_DIR}/${KICAD_TEMPLATE}"
 LTSPICE_TEMPLATE_DIR="${TEMPLATE_DIR}/${LTSPICE_TEMPLATE}"
 
 KICAD_TEMPLATE_BASE="${KICAD_TEMPLATE_DIR}/${KICAD_TEMPLATE}"
-LTSPICE_TEMPLATE_BASE="${LTSPICE_TEMPLATE_DIR}/${LTSPICE_TEMPLATE}"
+LTSPICE_TEMPLATE_BASE="${LTSPICE_TEMPLATE_DIR}"
 
 if [[ -d "$KICAD_TEMPLATE_DIR" ]]; then
     cp "${KICAD_TEMPLATE_BASE}.kicad_pro" "./${FULL_DIR}/schematics/${PROJECT_NAME}.kicad_pro"
@@ -72,8 +72,8 @@ else
     echo "Warning: KiCad Template not found. Check ${KICAD_TEMPLATE_DIR} exists. Continuing with empty directory."
 fi
 
-if [[ -d "$LTSPICE_TEMPLATE_DIR" ]]; then
-    cp "${LTSPICE_TEMPLATE_BASE}.asc" "./${FULL_DIR}/schematics/${PROJECT_NAME}.asc"
+if [[ -f "${LTSPICE_TEMPLATE_BASE}.asc" ]]; then
+    cp "${LTSPICE_TEMPLATE_BASE}.asc" "./${FULL_DIR}/simulations/${PROJECT_NAME}.asc"
     echo "Created LTSpice project for: ${PROJECT_NAME}"
 else
     echo "Warning: LTSpice Template not found. Check ${LTSPICE_TEMPLATE_DIR} exists. Continuing with empty directory."
