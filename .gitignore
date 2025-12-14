@@ -1,16 +1,22 @@
 # Gitignore
 
-# Deliberately Private
-*-backups
-*.kicad_pcb
-01-audio-equalizer/schematics/*
-01-audio-equalizer/simulations/*
-03-heartbeat-monitor/schematics/*
-03-heartbeat-monitor/simulations/*
-04-my-opamp/schematics/*
-04-my-opamp/simulations/*
+# --- AUTOMATIC-PROJECT-RULES-START ---
 
-# LTspice
+# --- AUTOMATIC-PROJECT-RULES-END ---
+
+# --- KiCad ---
+*-backups/
+*.bak
+*_autosave-*
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*.kicad_prl
+*.lock
+*-cache.lib
+*-rescue.lib
+fp-info-cache
+
+# --- LTspice ---
 *.raw
 *.fft
 *.plt
@@ -19,17 +25,7 @@
 *.traf
 *.op.raw
 
-# KiCad
-*.bak
-*_autosave-*.kicad_sch
-*_autosave-*.kicad_pcb
-*.kicad_pcb-bak
-*.kicad_sch-bak
-*.kicad_prl
-*.lock
-
-# Other
-fp-info-cache
+# --- OS / Misc ---
 .DS_Store
 Thumbs.db
 *~

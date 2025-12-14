@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# 1. Parse Arguments
+PROJECT_NAME=""
+IS_PRIVATE=0
+
+# Loop through arguments to find name and flags
+for arg in "$@"
+do
+    if [[ "$arg" == "--private" ]]; then
+        IS_PRIVATE=1
+    else
+        PROJECT_NAME="$arg"
+    fi
+done
+
+if [[ -z "$PROJECT_NAME" ]]; then
+    echo "Missing project name."
+    echo "Usage: ./new_project.sh \"project-name\" [--private]"
+    exit 1
+fi
+
+# 2. Calculate Next Project Number
+LAST_NUM=$(ls -d [0-9][0-9]-* 2>/dev/null | sort | tail -n 1 | cut -d'-' -f1)
+
+if [ -z "$LAST_NUM" ]; then
+    LAST_NUM=0
+fi
+
+NEXT_NUM=$((10#$LAST_NUM + 1))
+NEXT_ID=$(printf "%02d" $NEXT_NUM)
+FULL_DIR="${NEXT_ID}-${PROJECT_NAME}"
+
+# 3. Create Directories
+echo "Creating project: $FULL_DIR"
+mkdir -p "$FULL_DIR/media"
+mkdir -p "$FULL_DIR/schematics"
+mkdir -p "$FULL_DIR/simulations"
+
+# Add .gitkeep so empty folders are tracked
+# touch "$FULL_DIR/media/.gitkeep"
+# touch "$FULL_DIR/schematics/.gitkeep"
+# touch "$FULL_DIR/simulations/.gitkeep"
+
+# 4. Create README.md
+# Converts "my-cool-project" to "My Cool Project" for the title
+TITLE_NAME=$(echo "$PROJECT_NAME" | sed -r 's/-/ /g' | awk '{for(i=1;i<=NF;i++)sub(/./,toupper(substr($i,1,1)),$i)}1')
+
+echo "# $NEXT_ID $TITLE_NAME" > "$FULL_DIR/README.md"
+echo "" >> "$FULL_DIR/README.md"
+echo "Project description goes here." >> "$FULL_DIR/README.md"
+
+# 5. Update .gitignore
+GITIGNORE_FILE=".gitignore"
+
+# Prepare the block of text to insert
+RULES_TO_ADD="# $NEXT_ID $TITLE_NAME\n$FULL_DIR/*.kicad_pcb"
+
+if [ "$IS_PRIVATE" -eq 1 ]; then
+    echo "  -> Marking as PRIVATE (ignoring schematics & simulations)"
+    RULES_TO_ADD="$RULES_TO_ADD\n$FULL_DIR/schematics/*\n$FULL_DIR/simulations/*"
+fi
+
+# Use awk to insert the text immediately after the START marker
+awk -v rules="$RULES_TO_ADD" '
+    print
+    /# --- AUTOMATIC-PROJECT-RULES-START ---/ {
+        print rules
+    }
+' "$GITIGNORE_FILE" > "${GITIGNORE_FILE}.tmp" && mv "${GITIGNORE_FILE}.tmp" "$GITIGNORE_FILE"
+
+echo "Done! Project ready at ./$FULL_DIR"
