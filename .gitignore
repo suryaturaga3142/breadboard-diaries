@@ -26,6 +26,7 @@
 *.kicad_sch-bak
 *.kicad_prl
 *.lock
+*.lck
 *-cache.lib
 *-rescue.lib
 fp-info-cache
