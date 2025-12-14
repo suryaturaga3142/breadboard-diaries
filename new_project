@@ -61,12 +61,6 @@ if [ "$IS_PRIVATE" -eq 1 ]; then
     RULES_TO_ADD="$RULES_TO_ADD\n$FULL_DIR/schematics/*\n$FULL_DIR/simulations/*"
 fi
 
-# Use awk to insert the text immediately after the START marker
-awk -v rules="$RULES_TO_ADD" '
-    print
-    /# --- AUTOMATIC-PROJECT-RULES-START ---/ {
-        print rules
-    }
-' "$GITIGNORE_FILE" > "${GITIGNORE_FILE}.tmp" && mv "${GITIGNORE_FILE}.tmp" "$GITIGNORE_FILE"
+awk -v rules="$RULES_TO_ADD" '{ print } /# --- AUTOMATIC-PROJECT-RULES-START ---/ { print rules }' "$GITIGNORE_FILE" > "${GITIGNORE_FILE}.tmp" && mv "${GITIGNORE_FILE}.tmp" "$GITIGNORE_FILE"
 
 echo "Done! Project ready at ./$FULL_DIR"

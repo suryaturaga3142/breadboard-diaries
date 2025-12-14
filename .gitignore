@@ -1,7 +1,20 @@
 # Gitignore
 
 # --- AUTOMATIC-PROJECT-RULES-START ---
-
+# 05 Am Radio
+05-am-radio/*.kicad_pcb
+# 04 My Opamp
+04-my-opamp/*.kicad_pcb
+# 03 Heartbeat Monitor
+03-heartbeat-monitor/*.kicad_pcb
+03-heartbeat-monitor/schematics/*
+03-heartbeat-monitor/simulations/*
+# 02 Function Generator
+02-function-generator/*.kicad_pcb
+# 01 Audio Equalizer
+01-audio-equalizer/*.kicad_pcb
+01-audio-equalizer/schematics/*
+01-audio-equalizer/simulations/*
 # --- AUTOMATIC-PROJECT-RULES-END ---
 
 # --- KiCad ---
