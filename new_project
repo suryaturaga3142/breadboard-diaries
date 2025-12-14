@@ -53,7 +53,7 @@ echo "Project description goes here." >> "$FULL_DIR/README.md"
 echo "Created README for: ${PROJECT_NAME}"
 
 # --- Create Template files ---
-TEMPLATE_DIR="~/stuff/templates"
+TEMPLATE_DIR="${HOME}/stuff/templates"
 KICAD_TEMPLATE="kicad_9.0_basic"
 LTSPICE_TEMPLATE="ltspice_basic"
 
@@ -63,7 +63,7 @@ LTSPICE_TEMPLATE_DIR="${TEMPLATE_DIR}/${LTSPICE_TEMPLATE}"
 KICAD_TEMPLATE_BASE="${KICAD_TEMPLATE_DIR}/${KICAD_TEMPLATE}"
 LTSPICE_TEMPLATE_BASE="${LTSPICE_TEMPLATE_DIR}/${LTSPICE_TEMPLATE}"
 
-if [[ -f "$KICAD_TEMPLATE_DIR" ]]; then
+if [[ -d "$KICAD_TEMPLATE_DIR" ]]; then
     cp "${KICAD_TEMPLATE_BASE}.kicad_pro" "./${FULL_DIR}/schematics/${PROJECT_NAME}.kicad_pro"
     cp "${KICAD_TEMPLATE_BASE}.kicad_sch" "./${FULL_DIR}/schematics/${PROJECT_NAME}.kicad_sch"
     cp "${KICAD_TEMPLATE_BASE}.kicad_pcb" "./${FULL_DIR}/schematics/${PROJECT_NAME}.kicad_pcb"
@@ -72,7 +72,7 @@ else
     echo "Warning: KiCad Template not found. Check ${KICAD_TEMPLATE_DIR} exists. Continuing with empty directory."
 fi
 
-if [[ -f "$LTSPICE_TEMPLATE_DIR" ]]; then
+if [[ -d "$LTSPICE_TEMPLATE_DIR" ]]; then
     cp "${LTSPICE_TEMPLATE_BASE}.asc" "./${FULL_DIR}/schematics/${PROJECT_NAME}.asc"
     echo "Created LTSpice project for: ${PROJECT_NAME}"
 else
@@ -82,7 +82,7 @@ fi
 # --- Update .gitignore ---
 GITIGNORE_FILE=".gitignore"
 
-RULES_TO_ADD="# $NEXT_ID $TITLE_NAME\n$FULL_DIR/*.kicad_pcb"
+RULES_TO_ADD="# $NEXT_ID $TITLE_NAME\n$FULL_DIR/schematics/*.kicad_pcb"
 
 if [ "$IS_PRIVATE" -eq 1 ]; then
     echo "  -> Marking as PRIVATE (ignoring schematics & simulations)"
