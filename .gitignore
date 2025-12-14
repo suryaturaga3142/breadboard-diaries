@@ -1,5 +1,6 @@
 # Gitignore
 
+# Stuff that needs to be private
 # --- AUTOMATIC-PROJECT-RULES-START ---
 # 05 Am Radio
 05-am-radio/*.kicad_pcb

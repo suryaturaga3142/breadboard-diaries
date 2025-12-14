@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 1. Parse Arguments
+# --- Parse Arguments ---
 PROJECT_NAME=""
 IS_PRIVATE=0
 
@@ -16,11 +16,11 @@ done
 
 if [[ -z "$PROJECT_NAME" ]]; then
     echo "Missing project name."
-    echo "Usage: ./new_project.sh \"project-name\" [--private]"
+    echo "Usage: ./new_project \"project-name\" [--private]"
     exit 1
 fi
 
-# 2. Calculate Next Project Number
+# --- Calculate Next Project Number ---
 LAST_NUM=$(ls -d [0-9][0-9]-* 2>/dev/null | sort | tail -n 1 | cut -d'-' -f1)
 
 if [ -z "$LAST_NUM" ]; then
@@ -31,7 +31,7 @@ NEXT_NUM=$((10#$LAST_NUM + 1))
 NEXT_ID=$(printf "%02d" $NEXT_NUM)
 FULL_DIR="${NEXT_ID}-${PROJECT_NAME}"
 
-# 3. Create Directories
+# --- Create Directories ---
 echo "Creating project: $FULL_DIR"
 mkdir -p "$FULL_DIR/media"
 mkdir -p "$FULL_DIR/schematics"
@@ -42,18 +42,46 @@ mkdir -p "$FULL_DIR/simulations"
 # touch "$FULL_DIR/schematics/.gitkeep"
 # touch "$FULL_DIR/simulations/.gitkeep"
 
-# 4. Create README.md
+# --- Create README.md ---
 # Converts "my-cool-project" to "My Cool Project" for the title
 TITLE_NAME=$(echo "$PROJECT_NAME" | sed -r 's/-/ /g' | awk '{for(i=1;i<=NF;i++)sub(/./,toupper(substr($i,1,1)),$i)}1')
 
-echo "# $NEXT_ID $TITLE_NAME" > "$FULL_DIR/README.md"
+echo "# $TITLE_NAME" > "$FULL_DIR/README.md"
 echo "" >> "$FULL_DIR/README.md"
 echo "Project description goes here." >> "$FULL_DIR/README.md"
 
-# 5. Update .gitignore
+echo "Created README for: ${PROJECT_NAME}"
+
+# --- Create Template files ---
+TEMPLATE_DIR="~/stuff/templates"
+KICAD_TEMPLATE="kicad_9.0_basic"
+LTSPICE_TEMPLATE="ltspice_basic"
+
+KICAD_TEMPLATE_DIR="${TEMPLATE_DIR}/${KICAD_TEMPLATE}"
+LTSPICE_TEMPLATE_DIR="${TEMPLATE_DIR}/${LTSPICE_TEMPLATE}"
+
+KICAD_TEMPLATE_BASE="${KICAD_TEMPLATE_DIR}/${KICAD_TEMPLATE}"
+LTSPICE_TEMPLATE_BASE="${LTSPICE_TEMPLATE_DIR}/${LTSPICE_TEMPLATE}"
+
+if [[ -f "$KICAD_TEMPLATE_DIR" ]]; then
+    cp "${KICAD_TEMPLATE_BASE}.kicad_pro" "./${FULL_DIR}/schematics/${PROJECT_NAME}.kicad_pro"
+    cp "${KICAD_TEMPLATE_BASE}.kicad_sch" "./${FULL_DIR}/schematics/${PROJECT_NAME}.kicad_sch"
+    cp "${KICAD_TEMPLATE_BASE}.kicad_pcb" "./${FULL_DIR}/schematics/${PROJECT_NAME}.kicad_pcb"
+    echo "Created KiCad project for: ${PROJECT_NAME}"
+else
+    echo "Warning: KiCad Template not found. Check ${KICAD_TEMPLATE_DIR} exists. Continuing with empty directory."
+fi
+
+if [[ -f "$LTSPICE_TEMPLATE_DIR" ]]; then
+    cp "${LTSPICE_TEMPLATE_BASE}.asc" "./${FULL_DIR}/schematics/${PROJECT_NAME}.asc"
+    echo "Created LTSpice project for: ${PROJECT_NAME}"
+else
+    echo "Warning: LTSpice Template not found. Check ${LTSPICE_TEMPLATE_DIR} exists. Continuing with empty directory."
+fi
+
+# --- Update .gitignore ---
 GITIGNORE_FILE=".gitignore"
 
-# Prepare the block of text to insert
 RULES_TO_ADD="# $NEXT_ID $TITLE_NAME\n$FULL_DIR/*.kicad_pcb"
 
 if [ "$IS_PRIVATE" -eq 1 ]; then
@@ -63,4 +91,9 @@ fi
 
 awk -v rules="$RULES_TO_ADD" '{ print } /# --- AUTOMATIC-PROJECT-RULES-START ---/ { print rules }' "$GITIGNORE_FILE" > "${GITIGNORE_FILE}.tmp" && mv "${GITIGNORE_FILE}.tmp" "$GITIGNORE_FILE"
 
+echo "Updated .gitignore for: ${PROJECT_NAME}"
+
+# --- Exit sequence ---
 echo "Done! Project ready at ./$FULL_DIR"
+
+exit 0
