@@ -7,3 +7,12 @@ I really enjoy breadboarding. Not just putting stuff together with wires and mea
 
 ## Table of Contents
 
+- [Audio Equalizer](#audio-equalizer)
+- [Function Generator](#function-generator)
+- [Heartbeat Monitor](#heartbeat-monitor)
+- [My Op-Amp](#my-opamp)
+- [AM Radio](#am-radio)
+
+## Audio Equalizer
+
+This is a simple project made in 2024 to seperate an AUX cable signal into 3 groups, seperately amplify / reduce, and a final stage for recombinatuon and power amplifying. Can't show details on this one since I'm a TA for this class. 
