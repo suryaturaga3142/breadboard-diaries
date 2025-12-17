@@ -55,3 +55,8 @@ Made an AM radio transmitter and receiver. Capable of transmitting 2 seperate AU
 ---
 
 More coming soon :)
+
+---
+
+Creator: Surya Turaga. 
+Maintained with ❤️.
