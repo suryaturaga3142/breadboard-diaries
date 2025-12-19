@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This is not sourced.
+
 # --- Parse Arguments ---
 PROJECT_NAME=""
 IS_PRIVATE=0
