@@ -23,6 +23,8 @@
 01-audio-equalizer/media/*
 # --- AUTOMATIC-PROJECT-RULES-END ---
 
+*-report.pdf
+
 # --- KiCad ---
 *-backups/
 *.bak
