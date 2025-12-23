@@ -88,7 +88,7 @@ RULES_TO_ADD="# $NEXT_ID $TITLE_NAME\n$FULL_DIR/schematics/*.kicad_pcb"
 
 if [ "$IS_PRIVATE" -eq 1 ]; then
     echo "  -> Marking as PRIVATE (ignoring schematics & simulations)"
-    RULES_TO_ADD="$RULES_TO_ADD\n$FULL_DIR/schematics/*\n$FULL_DIR/simulations/*"
+    RULES_TO_ADD="$RULES_TO_ADD\n$FULL_DIR/schematics/*\n$FULL_DIR/simulations/*\n$FULL_DIR/media/*"
 fi
 
 awk -v rules="$RULES_TO_ADD" '{ print } /# --- AUTOMATIC-PROJECT-RULES-START ---/ { print rules }' "$GITIGNORE_FILE" > "${GITIGNORE_FILE}.tmp" && mv "${GITIGNORE_FILE}.tmp" "$GITIGNORE_FILE"
