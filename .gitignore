@@ -6,16 +6,24 @@
 05-am-radio/schematics/*.kicad_pcb
 # 04 My Opamp
 04-my-opamp/schematics/*.kicad_pcb
+04-my-opamp/schematics/*
+04-my-opamp/simulations/*
+04-my-opamp/media/*
+04-my-opamp/README.md
 # 03 Heartbeat Monitor
 03-heartbeat-monitor/schematics/*.kicad_pcb
 03-heartbeat-monitor/schematics/*
 03-heartbeat-monitor/simulations/*
+03-heartbeat-monitor/media/*
+03-heartbeat-monitor/README.md
 # 02 Function Generator
 02-function-generator/schematics/*.kicad_pcb
 # 01 Audio Equalizer
 01-audio-equalizer/schematics/*.kicad_pcb
 01-audio-equalizer/schematics/*
 01-audio-equalizer/simulations/*
+01-audio-equalizer/media/*
+01-audio-equalizer/README.md
 # --- AUTOMATIC-PROJECT-RULES-END ---
 
 # --- KiCad ---
